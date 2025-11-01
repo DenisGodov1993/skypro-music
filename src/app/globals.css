@@ -1,4 +1,28 @@
-:root {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-montserrat), 'Arial';
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+a, input, button {
+  font-family: var(--font-montserrat), 'Arial';
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* то, что было изначально */
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -39,4 +63,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
