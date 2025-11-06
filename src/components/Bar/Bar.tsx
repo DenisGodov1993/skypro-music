@@ -1,4 +1,4 @@
-import styles from './Bar.module.css';
+import styles from './bar.module.css';
 import Link from 'next/link';
 import classnames from 'classnames';
 
