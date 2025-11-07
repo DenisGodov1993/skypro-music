@@ -69,26 +69,3 @@ export default function Filter({ title }: FilterProps) {
     </div>
   );
 }
-
-
-// 'use client';
-
-// import styles from './filter.module.css';
-
-// type filterProp = {
-//   title: string[];
-// };
-
-// export default function Filter({ title }: filterProp) {
-// //   console.log(title);
-
-//   return (
-//     <>
-//       <div className={styles.filter__title}>Искать по:</div>
-//       {title}
-//       <div className={styles.filter__button}>исполнителю</div>
-//       <div className={styles.filter__button}>году выпуска</div>
-//       <div className={styles.filter__button}>жанру</div>
-//     </>
-//   );
-// }
