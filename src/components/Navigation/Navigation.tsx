@@ -9,7 +9,7 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
+    setMenuOpen((prev) => !prev); 
   };
 
   return (
