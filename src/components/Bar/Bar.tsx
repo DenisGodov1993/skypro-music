@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 import styles from './bar.module.css';
 import classnames from 'classnames';
@@ -15,8 +15,6 @@ export default function Bar() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   // console.log(currentTrack);
 
- 
-
   const playTrack = () => {
     if (audioRef.current) {
       audioRef.current.play();
@@ -31,23 +29,24 @@ export default function Bar() {
     }
   };
 
-  //  // Автоплей при смене трека
-  // useEffect(() => {
-  //   if (audioRef.current) {
-  //     audioRef.current.play().then(() => {
-  //       dispatch(setIsPlay(true));
-  //     });
-  //   }
-  // }, [currentTrack, dispatch]);
+  // загружаем новый src перед автоплеем
+  useEffect(() => {
+    if (audioRef.current && currentTrack) {
+      audioRef.current.load();
+    }
+  }, [currentTrack]);
 
-  // Автоплей при смене трека
-useEffect(() => {
-  if (!audioRef.current) return;
+  // Автоплей при готовности трека
+  useEffect(() => {
+    if (!audioRef.current || !currentTrack) return;
 
-  const audio = audioRef.current;
+    const audio = audioRef.current;
+
+  
 
   const handleCanPlay = () => {
-    audio.play()
+    audio
+.play()
       .then(() => dispatch(setIsPlay(true)))
       .catch(() => {}); // Игнорируем AbortError
   };
@@ -57,14 +56,7 @@ useEffect(() => {
   return () => {
     audio.removeEventListener("canplay", handleCanPlay);
   };
-}, [currentTrack]);
-
-// useEffect(() => {
-//   if (!currentTrack || !audioRef.current) return;
-  
-//   audioRef.current.load(); // Обновить аудио после смены src
-// }, [currentTrack]);
-
+}, [currentTrack, dispatch]);
 
 
   // Нереализованные кнопки
@@ -275,9 +267,9 @@ useEffect(() => {
 //           <div className={styles.bar__player}>
 //             <div className={styles.player__controls}>
 //               <div className={styles.player__btnPrev}>
-//                 <svg className={styles.player__btnPrevSvg}>
-//                   <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
-//                 </svg>
+                // <svg className={styles.player__btnPrevSvg}>
+                //   <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
+                // </svg>
 //               </div>
 //               <div className={classnames(styles.player__btnPlay, styles.btn)} onClick={playTrack}>
 //                 <svg className={styles.player__btnPlaySvg}>
