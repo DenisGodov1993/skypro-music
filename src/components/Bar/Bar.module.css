@@ -200,8 +200,8 @@
   grid-column: 2;
   grid-area: author;
   min-width: 49px;
-  
-   color: #ffffff;
+
+  color: #ffffff;
 }
 
 .trackPlay__authorLink {
@@ -219,7 +219,7 @@
   grid-area: album;
   min-width: 49px;
 
-   color: #ffffff;
+  color: #ffffff;
 }
 
 .trackPlay__albumLink {
