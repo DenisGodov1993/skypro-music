@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,18 +19,39 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"],
-      "@sharedTypes/*": ["src/sharedTypes/*"],
-      "@/store/features/trackSlice/*": ["src/store/features/trackSlice/*"]
-    }
+      "@/*": [
+        "src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@sharedTypes/*": [
+        "src/sharedTypes/*"
+      ],
+      "@/store/features/trackSlice/*": [
+        "src/store/features/trackSlice/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
-
-
 // {
 //   "compilerOptions": {
 //     "target": "ES2017",
@@ -49,7 +74,6 @@
 //     ],
 //     "paths": {
 //       "@/*": ["./src/*"],
-      
 //       "@components/*": ["./components/*"],
 //       "@utils/*": ["./utils/*"],
 //       "@sharedTypes/*": ["./sharedTypes/*"] ./ ТОЛЬКО КОГДА ОДИН АЛИАС
@@ -65,7 +89,6 @@
 //   ],
 //   "exclude": ["node_modules"]
 // }
-
 // было изначально
 // {
 //   "compilerOptions": {
