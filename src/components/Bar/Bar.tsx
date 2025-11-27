@@ -5,8 +5,9 @@ import styles from './bar.module.css';
 // import classnames from 'classnames';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { useRef, useEffect, useState } from 'react';
+import { ChangeEvent, useRef, useEffect, useState } from 'react';
 import { setIsPlay } from '@/store/features/trackSlice';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function Bar() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -19,6 +20,40 @@ export default function Bar() {
 
   const currentTrack = useAppSelector((state) => state.tracks?.currentTrack);
   const isPlay = useAppSelector((state) => state.tracks?.isPlay);
+
+  useEffect(() => {
+    setIsLoadedTrack(false);
+  }, [currentTrack]);
+
+  // // загружаем новый src перед автоплеем
+  //   useEffect(() => {
+  //     if (audioRef.current && currentTrack) {
+  //       audioRef.current.load();
+  //     }
+  //   }, [currentTrack]);
+
+  //   // Автоплей при готовности трека
+  //   useEffect(() => {
+  //     if (!audioRef.current || !currentTrack) return;
+
+  //     const audio = audioRef.current;
+
+  //     const handleCanPlay = () => {
+  //       audio
+  //         .play()
+  //         .then(() => dispatch(setIsPlay(true)))
+  //         .catch(() => {}); // Игнорируем
+  //     };
+
+  //     audio.addEventListener('canplay', handleCanPlay);
+
+  //     return () => {
+  //       audio.removeEventListener('canplay', handleCanPlay);
+  //     };
+  //   }, [currentTrack, dispatch]);
+
+  //   // Нереализованные кнопки
+  //   const notReady = () => alert('Еще не реализовано');
 
   const playTrack = () => {
     if (audioRef.current) {
@@ -51,6 +86,15 @@ export default function Bar() {
     if (audioRef.current) {
       audioRef.current.play();
       dispatch(setIsPlay(true));
+      setIsLoadedTrack(true);
+    }
+  };
+
+  const onChangeProgress = (e: ChangeEvent<HTMLInputElement>) => {
+    if (audioRef.current) {
+      const inputTime = Number(e.target.value);
+
+      audioRef.current.currentTime = inputTime;
     }
   };
 
@@ -99,7 +143,14 @@ export default function Bar() {
         onEnded={() => console.log('NEXT track')}
       />
       <div className={styles.bar__content}>
-        <div className={styles.bar__playerProgress}></div>
+        {/* <div className={styles.bar__playerProgress}></div> */}
+        <ProgressBar
+          max={audioRef.current?.duration || 0}
+          step={0.1}
+          readOnly={!isLoadedTrack}
+          value={11} //реализовать состояние текущего времени
+          onChange={onChangeProgress}
+        />
         <div className={styles.bar__playerBlock}>
           <div className={styles.bar__player}>
             <div className={styles.player__controls}>
@@ -181,7 +232,8 @@ export default function Bar() {
                 className={classNames(styles.volume__progressLine, styles.btn)}
                 type="range"
                 name="range"
-                onChange={(e) => { //превести к правельному виду
+                onChange={(e) => {
+                  //превести к правельному виду
                   setVolume(Number(e.target.value));
                   if (audioRef.current)
                     audioRef.current.volume = Number(e.target.value) / 100;
