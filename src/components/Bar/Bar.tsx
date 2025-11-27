@@ -6,7 +6,11 @@ import styles from './bar.module.css';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { ChangeEvent, useRef, useEffect, useState } from 'react';
-import { setIsPlay } from '@/store/features/trackSlice';
+import {
+  setIsPlay,
+  setNextTrack,
+  toggleShuffle,
+} from '@/store/features/trackSlice';
 import ProgressBar from '../ProgressBar/ProgressBar';
 
 export default function Bar() {
@@ -24,36 +28,6 @@ export default function Bar() {
   useEffect(() => {
     setIsLoadedTrack(false);
   }, [currentTrack]);
-
-  // // загружаем новый src перед автоплеем
-  //   useEffect(() => {
-  //     if (audioRef.current && currentTrack) {
-  //       audioRef.current.load();
-  //     }
-  //   }, [currentTrack]);
-
-  //   // Автоплей при готовности трека
-  //   useEffect(() => {
-  //     if (!audioRef.current || !currentTrack) return;
-
-  //     const audio = audioRef.current;
-
-  //     const handleCanPlay = () => {
-  //       audio
-  //         .play()
-  //         .then(() => dispatch(setIsPlay(true)))
-  //         .catch(() => {}); // Игнорируем
-  //     };
-
-  //     audio.addEventListener('canplay', handleCanPlay);
-
-  //     return () => {
-  //       audio.removeEventListener('canplay', handleCanPlay);
-  //     };
-  //   }, [currentTrack, dispatch]);
-
-  //   // Нереализованные кнопки
-  //   const notReady = () => alert('Еще не реализовано');
 
   const playTrack = () => {
     if (audioRef.current) {
@@ -96,6 +70,14 @@ export default function Bar() {
 
       audioRef.current.currentTime = inputTime;
     }
+  };
+
+  const onNextTrack = () => {
+    dispatch(setNextTrack());
+  };
+
+  const onToggleShuffle = () => {
+    dispatch(toggleShuffle());
   };
 
   // загружаем новый src перед автоплеем
@@ -173,8 +155,8 @@ export default function Bar() {
                   </svg>
                 </div>
               )}
-
-              <div className={styles.player__btnNext} onClick={notReady}>
+              {/* // реализовать логику, в которой при проигровании последнего трека, нажимая на следующий трек, ничего не происходит */}
+              <div className={styles.player__btnNext} onClick={onNextTrack}>
                 <svg className={styles.player__btnNextSvg}>
                   <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
                 </svg>
@@ -194,7 +176,7 @@ export default function Bar() {
                   styles.player__btnShuffle,
                   styles.btnIcon,
                 )}
-                onClick={notReady}
+                onClick={onToggleShuffle}
               >
                 <svg className={styles.player__btnShuffleSvg}>
                   <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
