@@ -28,7 +28,7 @@ export function getUniqueValuesByKey(
     // Прпеобразуем Set обратно в массив и возвращаем
     return Array.from(uniqueValues);
 }
-
+ 
 export function formatTime(time: number) {
     const minutes = Math.floor(time / 60);
     const inputSeconds = Math.floor(time % 60);

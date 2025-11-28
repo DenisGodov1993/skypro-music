@@ -61,4 +61,4 @@
 .styledProgressInput::-moz-range-progress {
    background-color: var(--progress-color);
    height: var(--progress-height);
-}
+} 
