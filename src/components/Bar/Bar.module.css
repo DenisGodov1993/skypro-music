@@ -366,21 +366,14 @@
   }
 }
 
-
-
-
-
-
 .active svg {
   stroke: #ffffff !important;
   fill: #ffffff !important;
 }
 
 .timePanel {
-  align-self: flex-end; 
+  align-self: flex-end;
   font-size: 12px;
   color: #ffffff;
   margin-bottom: 5px;
 }
-
- 
