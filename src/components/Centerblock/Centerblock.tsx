@@ -9,12 +9,17 @@ import { TrackType } from '@/sharedTypes/sharedTypes';
 type CenterblockProps = {
   tracks: TrackType[];
   itemName?: string;
+  loading?: boolean;
 };
 
-export default function Centerblock({ tracks, itemName = 'Трек' }: CenterblockProps) {
+export default function Centerblock({
+  tracks,
+  itemName = 'Трек',
+  loading,
+}: CenterblockProps) {
   const filters = ['исполнителю', 'году выпуска', 'жанру'];
   const items = ['Трек', 'Исполнитель', 'Альбом', 'Время'];
-  
+
   const [selectedFilter, setSelectedFilter] = useState<{
     type: string;
     value: string;
@@ -30,13 +35,11 @@ export default function Centerblock({ tracks, itemName = 'Трек' }: Centerblo
         return tracks.filter((t) => t.author === value);
 
       case 'жанру':
-        // genre у тебя — string[]
         return tracks.filter(
           (t) => Array.isArray(t.genre) && t.genre.includes(value),
         );
 
       case 'году выпуска':
-        // release_date например "2020-05-12" — сравниваем по префиксу года
         return tracks.filter(
           (t) =>
             typeof t.release_date === 'string' &&
@@ -59,17 +62,187 @@ export default function Centerblock({ tracks, itemName = 'Трек' }: Centerblo
 
       <div className={styles.centerblock__content}>
         <FilterItem items={items} />
-        <div className={styles.content__playlist}>
-          {/* {tracks.map(track => (
-            <Track key={track.id} track={track} playlist={tracks} /> */}
-          {filteredTracks.map((track) => (
-            <Track key={track._id} track={track} playlist={filteredTracks} />
-          ))}
-        </div>
+
+        {/* {loading ? (
+          <p className={styles.loading}>Данные загружаются...</p>
+        ) : ( */}
+        {loading ? (
+  <div className={styles.loading}>
+    Данные загружаются
+    <span className={styles.dots}>
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </div>
+) : (
+
+          <div className={styles.content__playlist}>
+            {filteredTracks.map((track) => (
+              <Track key={track._id} track={track} playlist={filteredTracks} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+// import { useMemo, useState } from 'react';
+// import styles from './centerblock.module.css';
+// import Search from '../Search/Search';
+// import Filter from '../Filter/Filter';
+// import FilterItem from '../FilterItem/FilterItem';
+// import Track from '../Track/Track';
+// import { TrackType } from '@/sharedTypes/sharedTypes';
+
+// type CenterblockProps = {
+//   tracks: TrackType[];
+//   itemName?: string;
+//   loading?: boolean;
+// };
+
+// export default function Centerblock({
+//   tracks,
+//   itemName = 'Трек',
+//   loading,
+// }: CenterblockProps) {
+//   const filters = ['исполнителю', 'году выпуска', 'жанру'];
+//   const items = ['Трек', 'Исполнитель', 'Альбом', 'Время'];
+
+//   const [selectedFilter, setSelectedFilter] = useState<{
+//     type: string;
+//     value: string;
+//   } | null>(null);
+
+//   const filteredTracks = useMemo(() => {
+//     if (!selectedFilter) return tracks;
+
+//     const { type, value } = selectedFilter;
+
+//     switch (type) {
+//       case 'исполнителю':
+//         return tracks.filter((t) => t.author === value);
+
+//       case 'жанру':
+//         // genre у тебя — string[]
+//         return tracks.filter(
+//           (t) => Array.isArray(t.genre) && t.genre.includes(value),
+//         );
+
+//       case 'году выпуска':
+//         // release_date например "2020-05-12" — сравниваем по префиксу года
+//         return tracks.filter(
+//           (t) =>
+//             typeof t.release_date === 'string' &&
+//             t.release_date.startsWith(value),
+//         );
+
+//       default:
+//         return tracks;
+//     }
+//   }, [selectedFilter, tracks]);
+
+//   return (
+//     <div className={styles.centerblock}>
+//       <Search />
+//       <h2 className={styles.centerblock__h2}>{itemName}</h2>
+
+//       <div className={styles.centerblock__filter}>
+//         <Filter title={filters} tracks={tracks} onSelect={setSelectedFilter} />
+//       </div>
+
+//       <div className={styles.centerblock__content}>
+//         <FilterItem items={items} />
+
+//         {loading ? (
+//           <p className={styles.loading}>Данные загружаются...</p>
+//         ) : (
+//           <div className={styles.content__playlist}>
+//             {/* {tracks.map(track => (
+//             <Track key={track.id} track={track} playlist={tracks} /> */}
+//             {filteredTracks.map((track) => (
+//               <Track key={track._id} track={track} playlist={filteredTracks} />
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
+// import { useMemo, useState } from 'react';
+// import styles from './centerblock.module.css';
+// import Search from '../Search/Search';
+// import Filter from '../Filter/Filter';
+// import FilterItem from '../FilterItem/FilterItem';
+// import Track from '../Track/Track';
+// import { TrackType } from '@/sharedTypes/sharedTypes';
+
+// type CenterblockProps = {
+//   tracks: TrackType[];
+//   itemName?: string;
+// };
+
+// export default function Centerblock({ tracks, itemName = 'Трек' }: CenterblockProps) {
+//   const filters = ['исполнителю', 'году выпуска', 'жанру'];
+//   const items = ['Трек', 'Исполнитель', 'Альбом', 'Время'];
+
+//   const [selectedFilter, setSelectedFilter] = useState<{
+//     type: string;
+//     value: string;
+//   } | null>(null);
+
+//   const filteredTracks = useMemo(() => {
+//     if (!selectedFilter) return tracks;
+
+//     const { type, value } = selectedFilter;
+
+//     switch (type) {
+//       case 'исполнителю':
+//         return tracks.filter((t) => t.author === value);
+
+//       case 'жанру':
+//         // genre у тебя — string[]
+//         return tracks.filter(
+//           (t) => Array.isArray(t.genre) && t.genre.includes(value),
+//         );
+
+//       case 'году выпуска':
+//         // release_date например "2020-05-12" — сравниваем по префиксу года
+//         return tracks.filter(
+//           (t) =>
+//             typeof t.release_date === 'string' &&
+//             t.release_date.startsWith(value),
+//         );
+
+//       default:
+//         return tracks;
+//     }
+//   }, [selectedFilter, tracks]);
+
+//   return (
+//     <div className={styles.centerblock}>
+//       <Search />
+//       <h2 className={styles.centerblock__h2}>{itemName}</h2>
+
+//       <div className={styles.centerblock__filter}>
+//         <Filter title={filters} tracks={tracks} onSelect={setSelectedFilter} />
+//       </div>
+
+//       <div className={styles.centerblock__content}>
+//         <FilterItem items={items} />
+//         <div className={styles.content__playlist}>
+//           {/* {tracks.map(track => (
+//             <Track key={track.id} track={track} playlist={tracks} /> */}
+//           {filteredTracks.map((track) => (
+//             <Track key={track._id} track={track} playlist={filteredTracks} />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 // рабочий вариант
 // import { useMemo, useState } from 'react';
