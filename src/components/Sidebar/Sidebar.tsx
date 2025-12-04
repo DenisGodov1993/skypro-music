@@ -11,14 +11,14 @@ export default function Sidebar() {
           <svg>
             <use xlinkHref="/img/icon/sprite.svg#logout"></use>
           </svg>
-        </div> 
+        </div>
       </div>
       <div className={styles.sidebar__block}>
         <div className={styles.sidebar__list}>
           <div className={styles.sidebar__item}>
             <Link className={styles.sidebar__link} href="/music/category/1">
               <Image
-                className={styles.sidebar__img} 
+                className={styles.sidebar__img}
                 src="/img/playlist01.png"
                 alt="day's playlist"
                 fill

@@ -63,8 +63,8 @@
 .loading {
   font-size: 18px;
   font-weight: 500;
-  color: #ffffff;       
-  letter-spacing: 0.4px; 
+  color: #ffffff;
+  letter-spacing: 0.4px;
   margin: 25px 0;
   display: flex;
   align-items: center;
@@ -98,9 +98,18 @@
 }
 
 @keyframes blink {
-  0% { opacity: 0.2; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-2px); }
-  100% { opacity: 0.2; transform: translateY(0); }
+  0% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
 }
 
 /* .error {
@@ -138,6 +147,12 @@
 }
 
 @keyframes blink {
-  0%, 80%, 100% { opacity: 0; }
-  40% { opacity: 1; }
+  0%,
+  80%,
+  100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
 }

@@ -1,4 +1,3 @@
-// import Link from 'next/link';
 import { ReactNode } from 'react';
 import styles from './layout.module.css';
 
@@ -16,11 +15,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           </div>
         </div>
       </div>
-
-      {/* <h1>Layout</h1>
-      <Link href={'/auth/signin'}>Auth</Link>
-      <Link href={'/auth/signup'}>Reg</Link>
-      {children} */}
     </>
   );
 }
