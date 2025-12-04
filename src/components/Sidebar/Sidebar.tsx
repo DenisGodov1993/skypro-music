@@ -11,7 +11,7 @@ export default function Sidebar() {
           <svg>
             <use xlinkHref="/img/icon/sprite.svg#logout"></use>
           </svg>
-        </div>
+        </div> 
       </div>
       <div className={styles.sidebar__block}>
         <div className={styles.sidebar__list}>
