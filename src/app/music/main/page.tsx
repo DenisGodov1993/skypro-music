@@ -1,15 +1,11 @@
 'use client';
 
-import styles from './page.module.css';
 import { useEffect, useState } from 'react';
 import { getTracks } from '@/services/tracks/tracksApi';
 import { TrackType } from '@/sharedTypes/sharedTypes';
 import { AxiosError } from 'axios';
-
-import Navigation from '@/components/Navigation/Navigation';
-import Sidebar from '@/components/Sidebar/Sidebar';
-import Bar from '@/components/Bar/Bar';
 import Centerblock from '@/components/Centerblock/Centerblock';
+import MusicLayout from '@/app/music/MusicLayout';
 
 export default function Home() {
   const [tracks, setTracks] = useState<TrackType[]>([]);
@@ -27,7 +23,7 @@ export default function Home() {
           if (error.response) {
             setError(error.response.data);
           } else if (error.request) {
-            console.log(error.request);
+            // console.log(error.request);
             setError('Что-то с интернетом. Ошибка загрузки');
           } else {
             // console.log('Error', error.message);
@@ -39,24 +35,77 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <main className={styles.main}>
-          <Navigation />
-          <Centerblock
-            tracks={tracks}
-            itemName="Треки"
-            loading={loading}
-            error={error}
-          />
-          <Sidebar />
-        </main>
-        <Bar />
-        <footer className="footer"></footer>
-      </div>
-    </div>
+    <MusicLayout>
+      <Centerblock
+        tracks={tracks}
+        itemName="Треки"
+        loading={loading}
+        error={error}
+      />
+    </MusicLayout>
   );
 }
+
+// до общего лояута
+// 'use client';
+
+// import styles from './page.module.css';
+// import { useEffect, useState } from 'react';
+// import { getTracks } from '@/services/tracks/tracksApi';
+// import { TrackType } from '@/sharedTypes/sharedTypes';
+// import { AxiosError } from 'axios';
+
+// import Navigation from '@/components/Navigation/Navigation';
+// import Sidebar from '@/components/Sidebar/Sidebar';
+// import Bar from '@/components/Bar/Bar';
+// import Centerblock from '@/components/Centerblock/Centerblock';
+
+// export default function Home() {
+//   const [tracks, setTracks] = useState<TrackType[]>([]);
+//   const [error, setError] = useState('');
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     getTracks()
+//       .then((res) => {
+//         setTracks(res);
+//         // console.log('Загруженные треки:', res);
+//       })
+//       .catch((error) => {
+//         if (error instanceof AxiosError) {
+//           if (error.response) {
+//             setError(error.response.data);
+//           } else if (error.request) {
+//             console.log(error.request);
+//             setError('Что-то с интернетом. Ошибка загрузки');
+//           } else {
+//             // console.log('Error', error.message);
+//             setError('Неизвестная ошибка');
+//           }
+//         }
+//       })
+//       .finally(() => setLoading(false));
+//   }, []);
+
+//   return (
+//     <div className={styles.wrapper}>
+//       <div className={styles.container}>
+//         <main className={styles.main}>
+//           <Navigation />
+//           <Centerblock
+//             tracks={tracks}
+//             itemName="Треки"
+//             loading={loading}
+//             error={error}
+//           />
+//           <Sidebar />
+//         </main>
+//         <Bar />
+//         <footer className="footer"></footer>
+//       </div>
+//     </div>
+//   );
+// }
 
 // 'use client';
 
