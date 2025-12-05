@@ -35,7 +35,7 @@ export default function Home() {
   }, []);
 
   return (
-    <MusicLayout>
+    <MusicLayout> 
       <Centerblock
         tracks={tracks}
         itemName="Треки"

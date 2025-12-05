@@ -46,7 +46,7 @@ export default function SignUp() {
     setIsLoading(true);
     try {
       await registerUser({ email, password, username: email });
-      router.push('/auth/signin');
+      router.push('/auth/signin'); // После регистрации → на страницу входа
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response) {
@@ -101,6 +101,7 @@ export default function SignUp() {
     </>
   );
 }
+
 
 // 'use client';
 

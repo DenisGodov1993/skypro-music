@@ -6,22 +6,38 @@
 
 .containerEnter {
   max-width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
+  min-height: 100vh;
   margin: 0 auto;
   position: relative;
   background-color: rgba(0, 0, 0, 0.85);
+
+  display: flex;              
+  justify-content: center;    
+  align-items: center;        
+  padding: 20px;  
 }
 
 .modal__block {
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   z-index: 2;
-  left: calc(50% - (366px / 2));
-  top: calc(50% - (439px / 2));
+  /* left: calc(50% - (366px / 2)); */
+  /* top: calc(50% - (439px / 2)); */
+  left: auto;
+  top: auto;
+  width: 100%;
+  max-width: 366px;
   opacity: 1;
 }
 
 .modal__form {
-  width: 366px;
+  /* width: 366px; */
+  width: 100%;
+  max-width: 366px;   
+  padding: 32px 24px; 
+  box-sizing: border-box;
+
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;

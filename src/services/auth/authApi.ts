@@ -12,7 +12,7 @@ type registerUserProps = {
   username: string;
 };
 
-type authUserReturn = {
+type authUserReturn = { 
   email: string;
   username: string;
   _id: number;
