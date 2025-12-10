@@ -19,7 +19,8 @@
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
       "@sharedTypes/*": ["src/sharedTypes/*"],
-      "@/store/features/trackSlice/*": ["src/store/features/trackSlice/*"]
+      "@/store/features/trackSlice/*": ["src/store/features/trackSlice/*"],
+      "@services/*": ["src/services/*"],
     },
     "plugins": [
       {
