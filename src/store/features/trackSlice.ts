@@ -9,7 +9,7 @@ type initialStateType = {
   isShuffle: boolean;
   allTracks: TrackType[];
   fetchError: null | string;
-  fetchIsLoading: boolean;
+  fetchIsLoading: boolean; 
 };
 
 const initialState: initialStateType = {

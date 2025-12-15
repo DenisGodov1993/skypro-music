@@ -1,38 +1,76 @@
 import axios from 'axios';
-import { BASE_URL } from '../constants';
+import { BASE_URL } from '@/services/constants';
+import { createUserProp } from '@/services/auth/types';
 
-type authUserProps = {
-  email: string;
-  password: string;
+export const createUser = ({ email, password }: createUserProp) => {
+  const data = {
+    email,
+    password,
+    username: email,
+  };
+
+  return axios.post(BASE_URL + '/user/signup/', data);
 };
 
-type registerUserProps = {
-  email: string;
-  password: string;
-  username: string;
+export const authUser = (data: createUserProp) => {
+  return axios.post(BASE_URL + '/user/login/', data);
 };
 
-type authUserReturn = { 
-  email: string;
-  username: string;
-  _id: number;
+type accessTokenType = {
+  access: string;
 };
 
-export const authUser = (data: authUserProps): Promise<authUserReturn> => {
-  return axios.post(BASE_URL + '/user/login/', data, {
-    headers: {
-      // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
-      'content-type': 'application/json',
-    },
-  });
+type refreshTokenType = {
+  refresh: string;
 };
 
-export const registerUser = (
-  data: registerUserProps,
-): Promise<authUserReturn> => {
-  return axios.post(BASE_URL + '/user/signup/', data, {
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
+type tokenType = accessTokenType & refreshTokenType;
+
+export const getTokens = (data: createUserProp): Promise<tokenType> => {
+  return axios.post(BASE_URL + '/user/token/', data).then((res) => res.data);
 };
+
+export const refreshToken = (refresh: string): Promise<tokenType> => {
+  return axios
+    .post(BASE_URL + '/user/token/refresh/', { refresh })
+    .then((res) => res.data);
+};
+
+// import axios from 'axios';
+// import { BASE_URL } from '../constants';
+
+// type authUserProps = {
+//   email: string;
+//   password: string;
+// };
+
+// type registerUserProps = {
+//   email: string;
+//   password: string;
+//   username: string;
+// };
+
+// type authUserReturn = {
+//   email: string;
+//   username: string;
+//   _id: number;
+// };
+
+// export const authUser = (data: authUserProps): Promise<authUserReturn> => {
+//   return axios.post(BASE_URL + '/user/login/', data, {
+//     headers: {
+//       // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
+//       'content-type': 'application/json',
+//     },
+//   });
+// };
+
+// export const registerUser = (
+//   data: registerUserProps,
+// ): Promise<authUserReturn> => {
+//   return axios.post(BASE_URL + '/user/signup/', data, {
+//     headers: {
+//       'content-type': 'application/json',
+//     },
+//   });
+// };
