@@ -9,28 +9,73 @@ import Bar from '@/components/Bar/Bar';
 import FetchingTracks from '@/components/FetchingTracks/FetchingTracks';
 import { useInitAuth } from '@/hooks/useInitAuth';
 
-export default function MusicLayout({ children }: { children: ReactNode }) {
+interface MusicLayoutProps {
+  children: ReactNode;
+}
+
+export default function MusicLayout({ children }: MusicLayoutProps) {
   const isAuthReady = useInitAuth();
 
-   // Ждём инициализацию авторизации
+  // Ждём инициализацию авторизации
   if (!isAuthReady) {
-    return null; 
+    return null;
   }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <main className={styles.main}>
-          <FetchingTracks />
-          <Navigation />
-          {children} 
+        <Navigation />
+
+        <div className={styles.page__content}>
+          <main className={styles.centerblock}>
+            <FetchingTracks />
+            {children}
+          </main>
           <Sidebar />
-        </main>
+        </div>
+
         <Bar />
         <footer className="footer"></footer>
       </div>
     </div>
   );
 }
+
+
+//рабочий вариант
+// 'use client';
+
+// import { ReactNode } from 'react';
+// import styles from './MusicLayout.module.css';
+
+// import Navigation from '@/components/Navigation/Navigation';
+// import Sidebar from '@/components/Sidebar/Sidebar';
+// import Bar from '@/components/Bar/Bar';
+// import FetchingTracks from '@/components/FetchingTracks/FetchingTracks';
+// import { useInitAuth } from '@/hooks/useInitAuth';
+
+// export default function MusicLayout({ children }: { children: ReactNode }) {
+//   const isAuthReady = useInitAuth();
+
+//    // Ждём инициализацию авторизации
+//   if (!isAuthReady) {
+//     return null;
+//   }
+//   return (
+//     <div className={styles.wrapper}>
+//       <div className={styles.container}>
+//         <main className={styles.main}>
+//           <FetchingTracks />
+//           <Navigation />
+//           {children}
+//           <Sidebar />
+//         </main>
+//         <Bar />
+//         <footer className="footer"></footer>
+//       </div>
+//     </div>
+//   );
+// }
 
 // 'use client';
 
@@ -51,7 +96,7 @@ export default function MusicLayout({ children }: { children: ReactNode }) {
 //         <main className={styles.main}>
 //           <FetchingTracks />
 //           <Navigation />
-//           {children} 
+//           {children}
 //           <Sidebar />
 //         </main>
 //         <Bar />
