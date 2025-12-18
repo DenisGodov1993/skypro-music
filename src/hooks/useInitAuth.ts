@@ -3,7 +3,12 @@ import { getFavoriteTracks } from '@/services/tracks/tracksApi';
 import { setFavoriteTracks } from '@/store/features/trackSlice';
 import { useAppDispatch } from '@/store/store';
 import { useEffect, useState } from 'react';
-import { clearUser, setAccessToken, setRefreshToken, setUsername } from '@/store/features/authSlice';
+import {
+  clearUser,
+  setAccessToken,
+  setRefreshToken,
+  setUsername,
+} from '@/store/features/authSlice';
 import { refreshToken } from '@/services/auth/authApi';
 
 export const useInitAuth = () => {
@@ -38,7 +43,7 @@ export const useInitAuth = () => {
             (token) => getFavoriteTracks(token),
             refresh,
             dispatch,
-            access
+            access,
           );
           dispatch(setFavoriteTracks(favs));
         }
@@ -54,120 +59,3 @@ export const useInitAuth = () => {
 
   return isAuthReady;
 };
-
-
-// рабочий вариант
-// import { useEffect, useState } from 'react';
-// import { useAppDispatch } from '@/store/store';
-// import {
-//   setUsername,
-//   setAccessToken,
-//   setRefreshToken,
-//   clearUser,
-// } from '@/store/features/authSlice';
-// import { refreshToken } from '@/services/auth/authApi';
-
-// export const useInitAuth = () => {
-//   const dispatch = useAppDispatch();
-//   const [isAuthReady, setIsAuthReady] = useState(false);
-
-//   useEffect(() => {
-//     if (typeof window === 'undefined') return;
-
-//     const username = localStorage.getItem('username');
-//     const access = localStorage.getItem('access');
-//     const refresh = localStorage.getItem('refresh');
-
-//     if (username) dispatch(setUsername(username));
-//     if (access) dispatch(setAccessToken(access));
-//     if (refresh) dispatch(setRefreshToken(refresh));
-
-//     const initAuth = async () => {
-//       if (access) {
-//         setIsAuthReady(true);
-//         return;
-//       }
-
-//       if (refresh) {
-//         try {
-//           const res = await refreshToken(refresh);
-//           dispatch(setAccessToken(res.access));
-//         } catch {
-//           dispatch(clearUser());
-//         }
-//       }
-//       setIsAuthReady(true);
-//     };
-
-//     initAuth();
-//   }, [dispatch]);
-
-//   return isAuthReady;
-// };
-
-// import { useEffect, useState } from 'react';
-// import { useAppDispatch } from '@/store/store';
-// import {
-//   setUsername,
-//   setAccessToken,
-//   setRefreshToken,
-//   clearUser,
-// } from '@/store/features/authSlice';
-// import { refreshToken } from '@/services/auth/authApi';
-
-// export const useInitAuth = () => {
-//   const dispatch = useAppDispatch();
-//   const [isAuthReady, setIsAuthReady] = useState(false);
-
-//   useEffect(() => {
-//     if (typeof window === 'undefined') return;
-
-//     const username = localStorage.getItem('username') || '';
-//     const access = localStorage.getItem('access') || '';
-//     const localRefresh = localStorage.getItem('refresh') || '';
-
-//     if (username) dispatch(setUsername(username));
-//     if (access) dispatch(setAccessToken(access));
-//     if (localRefresh) dispatch(setRefreshToken(localRefresh));
-
-//     const initAuth = async () => {
-//       if (localRefresh) {
-//         try {
-//           const res = await refreshToken(localRefresh);
-//           dispatch(setAccessToken(res.access));
-//         } catch {
-//           if (!access) {
-//             dispatch(clearUser());
-//           }
-//         }
-//       }
-//       setIsAuthReady(true);
-//     };
-
-//     initAuth();
-//   }, [dispatch]);
-
-//   return isAuthReady;
-// };
-
-// import { useEffect } from 'react';
-// import { useAppDispatch } from '@/store/store';
-// import {
-//   setUsername,
-//   setAccessToken,
-//   setRefreshToken,
-// } from '@/store/features/authSlice';
-
-// export const useInitAuth = () => {
-//   const dispatch = useAppDispatch();
-
-//   useEffect(() => {
-//     const username = localStorage.getItem('username') || '';
-//     const access = localStorage.getItem('access') || '';
-//     const refresh = localStorage.getItem('refresh') || '';
-
-//     dispatch(setUsername(username));
-//     dispatch(setAccessToken(access));
-//     dispatch(setRefreshToken(refresh));
-//   }, [dispatch]);
-// };

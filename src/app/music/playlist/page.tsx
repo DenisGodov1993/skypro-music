@@ -64,7 +64,7 @@ export default function MyPlaylistPage() {
         isLoading={isLoading}
         errorRes={errorRes}
         itemName="Мой плейлист"
-        onLikeClick={(trackId: number) => handleRemoveLike(trackId)} // функция передается через props
+        onLikeClick={(trackId: number) => handleRemoveLike(trackId)} 
       />
     </MusicLayout>
   );

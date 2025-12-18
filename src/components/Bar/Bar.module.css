@@ -210,7 +210,7 @@
 .trackPlay__info {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; 
+  flex-grow: 1;
   overflow: hidden;
 }
 
@@ -282,7 +282,7 @@
   height: 12px;
   fill: transparent;
   stroke: #696969;
-  
+
   cursor: pointer;
 }
 

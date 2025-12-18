@@ -11,7 +11,7 @@ export const getTracks = (): Promise<TrackType[]> => {
 };
 
 export const getCategories = (
-  categoryId: string, 
+  categoryId: string,
 ): Promise<ResCategoryApiType> => {
   return axios(BASE_URL + `/catalog/selection/${Number(categoryId) + 1}`).then(
     (res) => {
@@ -51,17 +51,3 @@ export const getFavoriteTracks = (access: string) => {
     })
     .then((res) => res.data.data);
 };
-
-
-
-// import axios from 'axios';
-// import { BASE_URL } from '../constants';
-// import { TrackType } from '@/sharedTypes/sharedTypes';
-
-// export const getTracks = (): Promise<TrackType[]> => {
-//   return axios
-//     .get<{ success: boolean; data: TrackType[] }>(
-//       `${BASE_URL}/catalog/track/all/`,
-//     )
-//     .then((res) => res.data.data);
-// };
