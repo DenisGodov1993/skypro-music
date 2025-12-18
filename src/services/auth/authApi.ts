@@ -30,11 +30,30 @@ export const getTokens = (data: createUserProp): Promise<tokenType> => {
   return axios.post(BASE_URL + '/user/token/', data).then((res) => res.data);
 };
 
-export const refreshToken = (refresh: string): Promise<tokenType> => {
-  return axios
-    .post(BASE_URL + '/user/token/refresh/', { refresh })
-    .then((res) => res.data);
+export const refreshToken = async (refresh: string) => {
+  const res = await axios.post(
+    BASE_URL + '/user/token/refresh/',
+    { refresh },
+    {
+      headers: {
+        'content-type': 'application/json',
+      },
+    },
+  );
+
+  return res.data; // { access: string }
 };
+
+// export const refreshToken = (refresh: string): Promise<tokenType> => {
+//   return axios
+//     .post(BASE_URL + '/user/token/refresh/', { refresh })
+//     .then((res) => res.data);
+// };
+
+
+
+
+
 
 // import axios from 'axios';
 // import { BASE_URL } from '../constants';

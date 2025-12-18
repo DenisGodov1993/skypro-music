@@ -7,7 +7,7 @@ import {
   setAllTracks,
   setFetchIsLoading,
   setFetchError,
-} from '@/store/features/trackSlice';
+} from '@/store/features/trackSlice'; 
 import { AxiosError } from 'axios';
 
 export default function FetchingTracks() {

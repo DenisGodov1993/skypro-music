@@ -13,11 +13,11 @@ export default function Home() {
     <MusicLayout>
       <Centerblock
         tracks={allTracks}
-        isLoading={fetchIsLoading}
+        isLoading={fetchIsLoading} 
         errorRes={fetchError}
         itemName="Треки"
       />
-    </MusicLayout>
+    </MusicLayout> 
   );
 }
 
