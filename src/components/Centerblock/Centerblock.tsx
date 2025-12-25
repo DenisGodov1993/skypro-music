@@ -17,7 +17,12 @@ type CenterblockProps = {
   itemName: string;
 };
 
-export default function Centerblock({ tracks, isLoading, errorRes, itemName }: CenterblockProps) {
+export default function Centerblock({
+  tracks,
+  isLoading,
+  errorRes,
+  itemName,
+}: CenterblockProps) {
   const dispatch = useAppDispatch();
   const { filteredTracks } = useAppSelector((state) => state.tracks);
 
@@ -44,19 +49,23 @@ export default function Centerblock({ tracks, isLoading, errorRes, itemName }: C
         <FilterItem items={items} />
 
         {isLoading ? (
-          <div className={styles.loading}>Данные загружаются            <span className={styles.dots}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </span>
-                      </div>
+          <div className={styles.loading}>
+            Данные загружаются{' '}
+            <span className={styles.dots}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
         ) : errorRes ? (
-          <div className={styles.error}>{errorRes}            <span className={styles.errorDots}>
+          <div className={styles.error}>
+            {errorRes}{' '}
+            <span className={styles.errorDots}>
               <span>!</span>
               <span>!</span>
               <span>!</span>
             </span>
-            </div>
+          </div>
         ) : filteredTracks.length === 0 ? (
           <div className={styles.empty}>Нет подходящих треков</div>
         ) : (
@@ -70,300 +79,3 @@ export default function Centerblock({ tracks, isLoading, errorRes, itemName }: C
     </div>
   );
 }
-
-
-// 'use client';
-
-// import { useMemo, useState, useEffect } from 'react';
-// import styles from './centerblock.module.css';
-// import Search from '../Search/Search';
-// import Filter from '../Filter/Filter';
-// import FilterItem from '../FilterItem/FilterItem';
-// import Track from '../Track/Track';
-// import { TrackType } from '@/sharedTypes/sharedTypes';
-// import { useAppDispatch, useAppSelector } from '@/store/store';
-// import { setPagePlaylist, resetFilters } from '@/store/features/trackSlice';
-
-// type CenterblockProps = {
-//   tracks: TrackType[];
-//   isLoading: boolean;
-//   errorRes: string | null;
-//   itemName: string;
-// };
-
-// export default function Centerblock({
-//   tracks,
-//   isLoading,
-//   errorRes,
-//   // itemName = 'Трек',
-//   itemName
-// }: CenterblockProps) {
-//   const dispatch = useAppDispatch();
-//   const { filteredTracks } = useAppSelector(state => state.tracks);
-
-//   useEffect(() => {
-//     if (!isLoading && !errorRes) {
-//       dispatch(setPagePlaylist(tracks));
-//       dispatch(resetFilters());
-//     }
-//   }, [tracks, isLoading, errorRes]);
-
-//   const filters = ['исполнителю', 'году выпуска', 'жанру'];
-//   const items = ['Трек', 'Исполнитель', 'Альбом', 'Время'];
-
-//   return (
-//     <div className={styles.centerblock}>
-//       <Search />
-//       <h2 className={styles.centerblock__h2}>{itemName}</h2>
-
-//       <div className={styles.centerblock__filter}>
-//         <Filter title={filters} tracks={tracks} />
-//       </div>
-
-//       <div className={styles.centerblock__content}>
-//         <FilterItem items={items} />
-
-//         {isLoading ? (
-//           <div className={styles.loading}>
-//             Данные загружаются
-//             <span className={styles.dots}>
-//               <span></span>
-//               <span></span>
-//               <span></span>
-//             </span>
-//           </div>
-//         ) : errorRes ? (
-//           <div className={styles.error}>
-//             {errorRes}
-//             <span className={styles.errorDots}>
-//               <span>!</span>
-//               <span>!</span>
-//               <span>!</span>
-//             </span>
-//           </div>
-//         ) : filteredTracks.length === 0 ? (
-//            <div className={styles.empty}>Нет подходящих треков</div>
-//            ) : (
-//           <div className={styles.content__playlist}>
-//             {filteredTracks.map((track) => (
-//               <Track key={track._id} track={track} playlist={filteredTracks} />
-//             ))}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-// переходный вариант
-// 'use client';
-
-// import { useMemo, useState, useEffect } from 'react';
-// import styles from './centerblock.module.css';
-// import Search from '../Search/Search';
-// import Filter from '../Filter/Filter';
-// import FilterItem from '../FilterItem/FilterItem';
-// import Track from '../Track/Track';
-// import { TrackType } from '@/sharedTypes/sharedTypes';
-// import { useAppDispatch } from '@/store/store';
-// import { setPagePlaylist } from '@/store/features/trackSlice';
-
-// type CenterblockProps = {
-//   tracks: TrackType[];
-//   isLoading: boolean;
-//   errorRes: string | null;
-//   itemName: string;
-//   onLikeClick?: (trackId: number) => void | Promise<void>;
-// };
-
-// export default function Centerblock({
-//   tracks,
-//   isLoading,
-//   errorRes,
-//   itemName = 'Трек',
-// }: CenterblockProps) {
-//   const dispatch = useAppDispatch();
-
-//   useEffect(() => {
-//     if (!isLoading && !errorRes) {
-//       dispatch(setPagePlaylist(tracks));
-//     }
-//   }, [isLoading, errorRes]);
-
-//   const filters = ['исполнителю', 'году выпуска', 'жанру'];
-//   const items = ['Трек', 'Исполнитель', 'Альбом', 'Время'];
-
-//   const [selectedFilter, setSelectedFilter] = useState<{
-//     type: string;
-//     value: string;
-//   } | null>(null);
-
-//   const filteredTracks = useMemo(() => {
-//     if (!selectedFilter) return tracks;
-
-//     const { type, value } = selectedFilter;
-
-//     switch (type) {
-//       case 'исполнителю':
-//         return tracks.filter((t) => t.author === value);
-
-//       case 'жанру':
-//         return tracks.filter(
-//           (t) => Array.isArray(t.genre) && t.genre.includes(value),
-//         );
-
-//       case 'году выпуска':
-//         return tracks.filter(
-//           (t) =>
-//             typeof t.release_date === 'string' &&
-//             t.release_date.startsWith(value),
-//         );
-
-//       default:
-//         return tracks;
-//     }
-//   }, [selectedFilter, tracks]);
-
-//   return (
-//     <div className={styles.centerblock}>
-//       <Search />
-//       <h2 className={styles.centerblock__h2}>{itemName}</h2>
-
-//       <div className={styles.centerblock__filter}>
-//         <Filter title={filters} tracks={tracks} onSelect={setSelectedFilter} />
-//       </div>
-
-//       <div className={styles.centerblock__content}>
-//         <FilterItem items={items} />
-
-//         {isLoading ? (
-//           <div className={styles.loading}>
-//             Данные загружаются
-//             <span className={styles.dots}>
-//               <span></span>
-//               <span></span>
-//               <span></span>
-//             </span>
-//           </div>
-//         ) : errorRes ? (
-//           // <div className={styles.error}>{error}</div>
-//           <div className={styles.error}>
-//             {errorRes}
-//             <span className={styles.errorDots}>
-//               <span>!</span>
-//               <span>!</span>
-//               <span>!</span>
-//             </span>
-//           </div>
-//         ) : (
-//           <div className={styles.content__playlist}>
-//             {filteredTracks.map((track) => (
-//               <Track key={track._id} track={track} playlist={filteredTracks} />
-//             ))}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-// рабочий вариант
-// import { useMemo, useState } from 'react';
-// import styles from './centerblock.module.css';
-// import Search from '../Search/Search';
-// import Filter from '../Filter/Filter';
-// import FilterItem from '../FilterItem/FilterItem';
-// import Track from '../Track/Track';
-// import { TrackType } from '@/sharedTypes/sharedTypes';
-
-// type CenterblockProps = {
-//   tracks: TrackType[];
-//   isLoading: boolean;
-//   errorRes: string | null;
-//   itemName: string;
-//   onLikeClick?: (trackId: number) => void | Promise<void>;
-// };
-
-// export default function Centerblock({
-//   tracks,
-//   isLoading,
-//   errorRes,
-//   itemName = 'Трек',
-// }: CenterblockProps) {
-//   const filters = ['исполнителю', 'году выпуска', 'жанру'];
-//   const items = ['Трек', 'Исполнитель', 'Альбом', 'Время'];
-
-//   const [selectedFilter, setSelectedFilter] = useState<{
-//     type: string;
-//     value: string;
-//   } | null>(null);
-
-//   const filteredTracks = useMemo(() => {
-//     if (!selectedFilter) return tracks;
-
-//     const { type, value } = selectedFilter;
-
-//     switch (type) {
-//       case 'исполнителю':
-//         return tracks.filter((t) => t.author === value);
-
-//       case 'жанру':
-//         return tracks.filter(
-//           (t) => Array.isArray(t.genre) && t.genre.includes(value),
-//         );
-
-//       case 'году выпуска':
-//         return tracks.filter(
-//           (t) =>
-//             typeof t.release_date === 'string' &&
-//             t.release_date.startsWith(value),
-//         );
-
-//       default:
-//         return tracks;
-//     }
-//   }, [selectedFilter, tracks]);
-
-//   return (
-//     <div className={styles.centerblock}>
-//       <Search />
-//       <h2 className={styles.centerblock__h2}>{itemName}</h2>
-
-//       <div className={styles.centerblock__filter}>
-//         <Filter title={filters} tracks={tracks} onSelect={setSelectedFilter} />
-//       </div>
-
-//       <div className={styles.centerblock__content}>
-//         <FilterItem items={items} />
-
-//         {isLoading ? (
-//           <div className={styles.loading}>
-//             Данные загружаются
-//             <span className={styles.dots}>
-//               <span></span>
-//               <span></span>
-//               <span></span>
-//             </span>
-//           </div>
-//         ) : errorRes ? (
-//           // <div className={styles.error}>{error}</div>
-//           <div className={styles.error}>
-//             {errorRes}
-//             <span className={styles.errorDots}>
-//               <span>!</span>
-//               <span>!</span>
-//               <span>!</span>
-//             </span>
-//           </div>
-//         ) : (
-//           <div className={styles.content__playlist}>
-//             {filteredTracks.map((track) => (
-//               <Track key={track._id} track={track} playlist={filteredTracks} />
-//             ))}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
