@@ -45,6 +45,23 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+
+
+
+.filter__buttonActive {
+  color: #a855f7;
+  border-color: #a855f7;
+}
+
+.filter__buttonActive:hover {
+  background-color: rgba(168, 85, 247, 0.15);
+}
+
+
+
+
+
+
 .filter__list {
   position: absolute;
   /* Отступ от кнопки */
@@ -86,6 +103,27 @@
   border-radius: 4px;
   transition: background 0.2s ease;
 }
+/* 
+.filter__listItem.active {
+  background-color: #B672FF;
+  color: #ffffff;
+} */
+
+/* выбранный пункт */
+.filter__listItem.selected {
+  color: #B672FF; 
+  text-decoration: underline;
+  text-decoration-color: #B672FF;
+  font-weight: 500;
+}
+
+/* счётчик */
+.counter {
+  margin-left: 6px;
+  color: #B672FF;
+  font-weight: 500;
+}
+
 
 .filter__listItem:hover {
   background-color: rgba(255, 255, 255, 0.1);
