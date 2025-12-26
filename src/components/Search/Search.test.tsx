@@ -12,7 +12,7 @@ describe('Search component', () => {
     render(
       <ReduxProvider>
         <Search />
-      </ReduxProvider>
+      </ReduxProvider>,
     );
 
   beforeEach(() => {
