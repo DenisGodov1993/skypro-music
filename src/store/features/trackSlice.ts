@@ -1,6 +1,7 @@
 import { applyFilters } from '@/utils/applyFilters';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TrackType } from '@sharedTypes/sharedTypes';
+import { getNextOrPrevTrack } from '@/utils/getNextOrPrevTrack';
 
 export type SortType = 'default' | 'author' | 'year_new' | 'year_old';
 
@@ -46,22 +47,22 @@ const initialState: initialStateType = {
   },
 };
 
-// Вспомогательная функция для подучения следующего или предыдущего трека
-const getNextOrPrevTrack = (
-  playlist: TrackType[],
-  currentTrack: TrackType | null,
-  direction: 'next' | 'prev',
-): TrackType | null => {
-  if (!currentTrack) return null;
+// // Вспомогательная функция для подучения следующего или предыдущего трека
+// const getNextOrPrevTrack = (
+//   playlist: TrackType[],
+//   currentTrack: TrackType | null, 
+//   direction: 'next' | 'prev',
+// ): TrackType | null => {
+//   if (!currentTrack) return null;
 
-  const currIdx = playlist.findIndex((el) => el._id === currentTrack._id);
-  if (currIdx === -1) return null;
+//   const currIdx = playlist.findIndex((el) => el._id === currentTrack._id);
+//   if (currIdx === -1) return null;
 
-  const newIdx = direction === 'next' ? currIdx + 1 : currIdx - 1;
-  if (newIdx < 0 || newIdx >= playlist.length) return null;
+//   const newIdx = direction === 'next' ? currIdx + 1 : currIdx - 1;
+//   if (newIdx < 0 || newIdx >= playlist.length) return null;
 
-  return playlist[newIdx];
-};
+//   return playlist[newIdx];
+// };
 
 const trackSlice = createSlice({
   name: 'tracks',
