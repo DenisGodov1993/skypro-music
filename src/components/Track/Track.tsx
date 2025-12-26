@@ -17,7 +17,7 @@ import { useCallback } from 'react';
 type TrackProps = {
   track: TrackType;
   playlist: TrackType[];
-};
+}; 
 
 export default function Track({ track, playlist }: TrackProps) {
   const dispatch = useAppDispatch();
