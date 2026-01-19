@@ -13,6 +13,7 @@ import {
   setRefreshToken,
 } from '@/store/features/authSlice';
 import { loginUser } from '@/services/auth/authApi';
+import Image from 'next/image';
 
 export default function Signin() {
   const dispatch = useAppDispatch();
@@ -60,7 +61,13 @@ export default function Signin() {
     <>
       <Link href="/music/main">
         <div className={styles.modal__logo}>
-          <img src="/img/logo_modal.png" alt="logo" />
+          <Image
+            src="/img/logo_modal.png"
+            alt="logo"
+            width={140}
+            height={21}
+            priority
+          />
         </div>
       </Link>
 
