@@ -7,7 +7,6 @@ export default function HomeRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    // router.replace('/auth/signin');
     router.replace('/music/main');
   }, [router]);
 
